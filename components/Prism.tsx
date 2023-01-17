@@ -1,51 +1,77 @@
-import React, { useState, useRef } from "react";
-import styles from "@/styles/prism.module.css";
-import SmallPrism from "./SmallPrism";
-import LargePrism from "./LargePrism";
-import {motion} from 'framer-motion'
+import React from "react";
 
-const Prism = () => {
-  const [isPrismHidden, setIsPrismHidden] = useState(false);
-  const [isMin, setIsMin] = useState(false);
+interface IProps {
+  isMin: boolean;
+}
 
-  const containerRef = useRef(null);
-
-  const handleHidePrism = () => {
-    setIsPrismHidden((prev) => !prev);
-  };
-
-  const handleSize = () => {
-    setIsMin((prev) => !prev);
-  };
-
-
+const SmallPrism: React.FC<IProps> = ({ isMin }) => {
   return (
-    <motion.div
-      drag
-      whileDrag={{ scale: 1.1 }}
-      dragMomentum={false}
-      ref={containerRef}
-      hidden
-      className={styles.container}
-    >
-      <div className={styles.buttonContainer}>
-        <button className={styles.sizeButton} onClick={handleSize}>
-          Toggle Size
-        </button>
-
-        <button className={styles.hideButton} onClick={handleHidePrism}>
-          {isPrismHidden ? "Show" : "Hide"}
-        </button>
-      </div>
-      {!isPrismHidden ? (
-        <div className={styles.visibleBox}>
-          {isMin ? <SmallPrism /> : <LargePrism />}
+    <div className="prism-container">
+      <div
+        style={{
+          height: `${isMin ? "5rem" : "10rem"}`,
+          width: `${isMin ? "4rem" : "8rem"}`,
+          transform: `${
+            isMin
+              ? "translateX(-2rem) rotateY(60deg)"
+              : "translateX(-4rem) rotateY(60deg)"
+          }`,
+        }}
+        className="face front-face"
+      >
+        <div
+          style={{
+            fontSize: `${isMin ? "0.7rem" : "1.2rem"}`,
+          }}
+          className="scoreboard"
+        >
+          <p>ARG - 4</p>
+          <p>FRA - 3</p>
         </div>
-      ) : (
-        <div className={styles.emptyBox} />
-      )}
-    </motion.div>
+      </div>
+      <div
+        style={{
+          height: `${isMin ? "5rem" : "10rem"}`,
+          width: `${isMin ? "4rem" : "8rem"}`,
+          transform: `${
+            isMin
+              ? "rotateY(120deg)"
+              : "rotateY(120deg)"
+          }`,
+        }}
+        className="face left-face"
+      >
+        <div
+          style={{
+            fontSize: `${isMin ? "0.7rem" : "1.2rem"}`,
+          }}
+          className="winnerboard"
+        >
+          <p>Winner</p>
+          <p>ARG 🎉</p>
+        </div>
+      </div>
+      <div
+        style={{
+          height: `${isMin ? "5rem" : "10rem"}`,
+          width: `${isMin ? "4rem" : "8rem"}`,
+          transform: `${
+            isMin
+              ? "translateX(-1rem) translateZ(1.7rem)"
+              : "translateX(-2rem) translateZ(3.5rem)"
+          }`,
+        }}
+        className="face right-face"
+      >
+        <img
+          src="/assets/logo.png"
+          style={{ height: `${isMin ? "5rem" : "8rem"}` }}
+          className="logo"
+          alt="logo"
+        />
+      </div>
+    </div>
   );
 };
 
-export default Prism;
+export default SmallPrism;
