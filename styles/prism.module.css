@@ -1,7 +1,7 @@
 .container {
   position: absolute;
-  bottom: 5rem;
-  right: 3rem;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,4 +48,3 @@
   border: 1.5px solid black;
   border-radius: 3px;
 }
-

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import styles from "@/styles/prism.module.css";
 import Prism from "./Prism";
-import { motion } from "framer-motion";
+import useDrag from "@/hooks/useDrag";
 
 const PrismContainer = () => {
   const [isPrismHidden, setIsPrismHidden] = useState(false);
@@ -17,14 +17,14 @@ const PrismContainer = () => {
     setIsMin((prev) => !prev);
   };
 
+  useDrag("prism");
+
   return (
-    <motion.div
-      drag
-      dragConstraints={{bottom: 0, right: 10}}
-      whileDrag={{ scale: 1.1 }}
-      dragMomentum={false}
+    <div
+      id="prism"
       ref={containerRef}
       hidden
+      style={{height: `${isMin ? '5rem' : '15rem'}`}}
       className={styles.container}
     >
       <div className={styles.buttonContainer}>
@@ -43,7 +43,7 @@ const PrismContainer = () => {
       ) : (
         <div className={styles.emptyBox} />
       )}
-    </motion.div>
+    </div>
   );
 };
 
